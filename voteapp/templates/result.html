@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+{% load humanize %}
+
+{% load custom_filters %}
+
+<div class="container result-container">
+    <div class="sub-container">
+      <h2>Results</h2>
+      <h4>{{category.title}}</h4>
+      <br>
+  
+      <h5>Total Votes = {{category.total_vote}}</h5>
+      <br />
+  
+      
+      {% for item in items  %}
+
+      {% if request.user|has_voted:item.voters.all %}
+      
+      <small>{{item.title}}</strong> --- {{item.total_vote}} vote{{item.total_vote | pluralize:",s"}} ---  <strong>[voted]</strong> </small> 
+      <div class="progressContainer">
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            aria-label="Example with label"
+            style="width:{{item.percentage_vote | floatformat:2}}%;"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+          {{item.percentage_vote | floatformat:2}}%
+          </div>
+        </div>
+      </div>
+      <br>
+
+
+      {% else %}
+
+
+      <small>{{item.title}}</strong> --- {{item.total_vote}} vote{{item.total_vote | pluralize:",s"}} </small> 
+      <div class="progressContainer">
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            aria-label="Example with label"
+            style="width:{{item.percentage_vote | floatformat:2}}%;"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+          {{item.percentage_vote | floatformat:2}}%
+          </div>
+        </div>
+      </div>
+      <br>
+
+      
+      {% endif %}
+
+      
+        
+      {% endfor %}
+        
+
+      
+  
+  
+  
+  
+     
+  
+  
+  
+  
+  
+      <h5 style="font-weight: bold">Thank you for voting</h5>
+    </div>
+  </div>
+  
+    
+{% endblock content %}
+    

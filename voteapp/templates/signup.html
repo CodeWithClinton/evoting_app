@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<div class="formContainer">
+    <form class="signupForm" action="" method='POST'>
+        <h4>SignUp</h4>
+        {% csrf_token %}
+        {% comment %} <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Enter Username">
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password1" placeholder="Enter Password">
+          </div>
+
+
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter Password">
+          </div> {% endcomment %}
+
+          
+          {% for field in form  %}
+
+          {% if field.errors %}
+
+          <div class="mb-3">
+            {{field.label}} <br>
+            {{field}}
+            <small class="error">{{field.errors}}</small>
+          </div>
+
+          {% else %}
+          <div class="mb-3">
+            {{field.label}} <br>
+            {{field}}
+          </div>
+          
+          {% endif %}
+
+        
+
+       
+  
+            
+          {% endfor %}
+            
+
+
+
+          <button class = 'btn btn-primary'>Register</button>
+          <p style="text-align:center">Already have an account? <a href="{% url 'signin' %}">Login</a></p>
+    </form>
+</div>
+
+
+<script>
+  let form_container = document.querySelector(".formContainer")
+  let inputs = form_container.querySelectorAll("input")
+
+
+  for(let input of inputs){
+      input.classList.add("form-control")
+  }
+
+</script>
+    
+{% endblock content %}
+    
